@@ -49,4 +49,3 @@ if __name__ == '__main__':
         logger.error('Gitlab group id must be set')
     except ValueError:
         logger.error('Gitlab group id must be integer')
-
