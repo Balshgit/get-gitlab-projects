@@ -6,7 +6,6 @@ from pathlib import Path
 
 current_dir = Path(__file__).parent.parent
 
-
 # use loguru if it is possible for color output
 if importlib.util.find_spec('loguru') is not None:
     from loguru import logger

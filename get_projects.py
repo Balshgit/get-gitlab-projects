@@ -4,11 +4,12 @@ import sys
 import time
 
 import requests
-from get_project_core.settings import current_dir, logger  # ,config
 
+from get_project_core.settings import current_dir, logger
 
-MY_GITLAB_TOKEN=''
-headers = {'PRIVATE-TOKEN': MY_GITLAB_TOKEN}
+GITLAB_TOKEN = ''
+
+headers = {'PRIVATE-TOKEN': GITLAB_TOKEN}
 
 
 def create_repositories(group_id: int):
@@ -42,5 +43,10 @@ if __name__ == '__main__':
     try:
         group = args[0]
         logger.info(group)
+        create_repositories(group_id=int(group))
+        update_submodules()
     except IndexError:
         logger.error('Gitlab group id must be set')
+    except ValueError:
+        logger.error('Gitlab group id must be integer')
+
