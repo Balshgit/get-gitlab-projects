@@ -8,6 +8,7 @@ import requests
 from get_project_core.settings import current_dir, logger
 
 GITLAB_TOKEN = ''
+GITLAB_URL = 'https://gitlab.srv.hub.litres.ru'
 
 headers = {'PRIVATE-TOKEN': GITLAB_TOKEN}
 
@@ -18,7 +19,7 @@ def create_repositories(group_id: int):
 
     :param group_id: Can be find under group name
     """
-    request = requests.get(f'https://scm.x5.ru/api/v4/groups/{group_id}/projects', headers=headers, verify=False)
+    request = requests.get(f'{GITLAB_URL}/v4/groups/{group_id}/projects', headers=headers, verify=False)
     # logger.info(f'{json.dumps(request.json(), indent=4, separators=(",", ":"))}')
 
     repos = request.json()
@@ -35,7 +36,7 @@ def update_submodules():
     Update all submodules
 
     """
-    subprocess.Popen(['git', 'submodule', 'foreach', f'{current_dir}/get-project-core/update-repos.sh'])
+    subprocess.Popen(['git', 'submodule', 'foreach', f'{current_dir}/get_project_core/update-repos.sh'])
 
 
 if __name__ == '__main__':
