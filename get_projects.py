@@ -19,7 +19,7 @@ def create_repositories(group_id: int):
 
     :param group_id: Can be find under group name
     """
-    request = requests.get(f'{GITLAB_URL}/v4/groups/{group_id}/projects', headers=headers, verify=False)
+    request = requests.get(f'{GITLAB_URL}/api/v4/groups/{group_id}/projects', headers=headers, verify=False)
     # logger.info(f'{json.dumps(request.json(), indent=4, separators=(",", ":"))}')
 
     repos = request.json()
@@ -28,7 +28,7 @@ def create_repositories(group_id: int):
         name = str(repo.get("ssh_url_to_repo", None)).strip()
         subprocess.Popen(['git', 'submodule', 'add', name])
         logger.info(f'Created: {name}')
-        time.sleep(15)
+        time.sleep(45)
 
 
 def update_submodules():
